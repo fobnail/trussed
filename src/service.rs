@@ -406,6 +406,12 @@ impl<P: Platform> ServiceResources<P> {
                 }))
             }
 
+            Request::ReadAttribute(request) => {
+                Ok(Reply::ReadAttribute(reply::ReadAttribute {
+                    data: filestore.read_attribute(&request.path, request.location, request.id)?
+                }))
+            }
+
             Request::RandomBytes(request) => {
                 if request.count < 1024 {
                     let mut bytes = Message::new();

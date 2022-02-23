@@ -638,6 +638,14 @@ pub trait FilesystemClient: PollClient {
         Ok(r)
     }
 
+    fn read_attribute(&mut self, location: Location, path: PathBuf, id: u8)
+        -> ClientResult<'_, reply::ReadAttribute, Self>
+    {
+        let r = self.request(request::ReadAttribute { location, path, id, })?;
+        r.client.syscall();
+        Ok(r)
+    }
+
     fn locate_file(&mut self, location: Location, dir: Option<PathBuf>, filename: PathBuf)
         -> ClientResult<'_, reply::LocateFile, Self>
     {

@@ -63,6 +63,7 @@ impl<S: Store> ClientFilestore<S> {
 
 pub trait Filestore {
     fn read<const N: usize>(&mut self, path: &PathBuf, location: Location) -> Result<Bytes<N>>;
+    fn read_attribute<const N: usize>(&mut self, path: &PathBuf, location: Location, attribute: u8) -> Result<Option<Bytes<N>>>;
     fn write(&mut self, path: &PathBuf, location: Location, data: &[u8]) -> Result<()>;
     fn exists(&mut self, path: &PathBuf, location: Location) -> bool;
     fn remove_file(&mut self, path: &PathBuf, location: Location) -> Result<()>;
@@ -109,6 +110,12 @@ impl<S: Store> Filestore for ClientFilestore<S> {
         let path = self.actual_path(path);
 
         store::read(self.store, location, &path)
+    }
+
+    fn read_attribute<const N: usize>(&mut self, path: &PathBuf, location: Location, attribute: u8) -> Result<Option<Bytes<N>>> {
+        let path = self.actual_path(path);
+
+        store::read_attribute(self.store, location, &path, attribute)
     }
 
     fn write(&mut self, path: &PathBuf, location: Location, data: &[u8]) -> Result<()> {

@@ -460,6 +460,20 @@ pub fn read<const N: usize>(store: impl Store, location: Location, path: &Path) 
     }.map(Bytes::from).map_err(|_| Error::FilesystemReadFailure)
 }
 
+/// Read user attribute attached to file.
+pub fn read_attribute<const N: usize>(store: impl Store, location: Location, path: &Path, id: u8) -> Result<Option<Bytes<N>>, Error> {
+    debug_now!("reading attribute {} from {}", attribute, &path);
+    match location {
+        Location::Internal => store.ifs().attribute(path, id),
+        Location::External => store.efs().attribute(path, id),
+        Location::Volatile => store.vfs().attribute(path, id),
+    }
+    .map(|attr| {
+        attr.map(|attr| Bytes::from_slice(attr.data()).unwrap())
+    })
+    .map_err(|_| Error::FilesystemReadFailure)
+}
+
 /// Writes contents to path in location of store.
 pub fn write(store: impl Store, location: Location, path: &Path, contents: &[u8]) -> Result<(), Error> {
     debug_now!("writing {}", &path);

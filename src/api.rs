@@ -73,6 +73,7 @@ generate_enums! {
     RemoveDirAll: 34
     // WriteFile: 29
     LocateFile: 35
+    ReadAttribute: 37
 
     ////////
     // UI //
@@ -231,6 +232,11 @@ pub mod request {
         ReadFile:
           - location: Location
           - path: PathBuf
+
+        ReadAttribute:
+          - location: Location
+          - path: PathBuf
+          - id: u8
 
         RemoveFile:
           - location: Location
@@ -412,6 +418,9 @@ pub mod reply {
 
         ReadFile:
           - data: Message
+
+        ReadAttribute:
+          - data: Option<UserAttribute>
 
         RemoveDir:
 
