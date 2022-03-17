@@ -8,7 +8,7 @@ use littlefs2::consts;
 
 pub type MAX_APPLICATION_NAME_LENGTH = consts::U256;
 pub const MAX_LONG_DATA_LENGTH: usize = 1024;
-pub const MAX_MESSAGE_LENGTH: usize = 2048;
+pub const MAX_MESSAGE_LENGTH: usize = 4096;
 pub type MAX_OBJECT_HANDLES = consts::U16;
 pub type MAX_LABEL_LENGTH = consts::U256;
 pub const MAX_MEDIUM_DATA_LENGTH: usize = 256;
@@ -22,4 +22,3 @@ pub const MAX_SIGNATURE_LENGTH: usize = 72;
 pub const MAX_USER_ATTRIBUTE_LENGTH: usize = 256;
 
 pub const USER_ATTRIBUTE_NUMBER: u8 = 37;
-
