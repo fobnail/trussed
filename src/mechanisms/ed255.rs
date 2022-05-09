@@ -126,7 +126,12 @@ impl SerializeKey for super::Ed255
         -> Result<reply::SerializeKey, Error>
     {
         let key_id = request.key;
-        let public_key = load_public_key(keystore, &key_id)?;
+        let public_key = load_public_key(keystore, &key_id).or_else(|_| {
+            // load_public_key loads public key from a separate file, which won't
+            // exist if we generated keypair ourselves. In that case we need to load
+            // private key and re-compute public key from that.
+            load_keypair(keystore, &key_id).map(|x| x.public)
+        })?;
 
         let serialized_key = match request.format {
             KeySerialization::Cose => {
