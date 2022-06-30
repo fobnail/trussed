@@ -44,7 +44,7 @@ delog = "0.1.0"
 cbor-smol = "0.4"
 heapless-bytes = { version = "0.3.0", features = ["cbor"] }
 interchange = "0.2.1"
-littlefs2 = "0.3.1"
+littlefs2 = { git = "https://github.com/fobnail/littlefs2", branch = "upstream-v2.4.2-fs-corruption-fix" }
 p256-cortex-m4 = { version = "0.1.0-alpha.5", features = ["prehash", "sec1-signatures"] }
 salty = { version = "0.2.0", features = ["cose"] }
 serde-indexed = "0.1.0"
