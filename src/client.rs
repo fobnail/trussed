@@ -654,11 +654,12 @@ pub trait FilesystemClient: PollClient {
         Ok(r)
     }
 
+    #[inline(always)]
     fn write_file(
         &mut self,
         location: Location,
         path: PathBuf,
-        data: Message,
+        data: HugeMessage,
         user_attribute: Option<UserAttribute>,
         )
         -> ClientResult<'_, reply::WriteFile, Self>

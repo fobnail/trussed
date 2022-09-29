@@ -271,7 +271,7 @@ pub mod request {
         WriteFile:
           - location: Location
           - path: PathBuf
-          - data: Message
+          - data: HugeMessage
           - user_attribute: Option<UserAttribute>
 
         UnsafeInjectKey:
@@ -417,7 +417,7 @@ pub mod reply {
           - entry: Option<DirEntry>
 
         ReadFile:
-          - data: Message
+          - data: HugeMessage
 
         ReadAttribute:
           - data: Option<UserAttribute>
