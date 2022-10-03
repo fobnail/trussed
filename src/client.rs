@@ -630,6 +630,7 @@ pub trait FilesystemClient: PollClient {
         Ok(r)
     }
 
+    #[inline(always)]
     fn read_file(&mut self, location: Location, path: PathBuf)
         -> ClientResult<'_, reply::ReadFile, Self>
     {
